@@ -8,6 +8,7 @@ import java.util.*;
 
 public class PlayerService {
     private PlayerDAO playerDao;
+    private PlayersByPositionDAO playersByPositionDAO;
 
     private Connection connection;
 
@@ -41,5 +42,9 @@ public class PlayerService {
             throw new RuntimeException("선수 목록 조회 오류발생");
         }
         return players;
+    }
+
+    public PositionRespDTO getPlayerByPositions() {
+        return playersByPositionDAO.getPlayerByPositionList();
     }
 }
