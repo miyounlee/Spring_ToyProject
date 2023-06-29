@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.List;
 
 @Builder
+@Getter
 public class TeamRespDTO {
 
         private int teamId;
