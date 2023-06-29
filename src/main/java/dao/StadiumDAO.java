@@ -9,14 +9,13 @@ public class StadiumDAO {
 
     private Connection connection;
 
-    public StadiumDAO() {}
+    private static final StadiumDAO INSTANCE = new StadiumDAO();
 
-    private static class StadiumDAOHelper {
-        private static final StadiumDAO INSTANCE = new StadiumDAO();
+    private StadiumDAO() {
     }
 
     public static StadiumDAO getInstance() {
-        return StadiumDAOHelper.INSTANCE;
+        return INSTANCE;
     }
 
     public void setConnection(Connection connection) {
