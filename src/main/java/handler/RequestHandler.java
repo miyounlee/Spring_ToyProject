@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import service.PlayerService;
 import service.StadiumService;
 import service.TeamService;
+import service.OutPlayerService;
 
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -14,8 +16,9 @@ public class RequestHandler {
     private StadiumService stadiumService;
     private TeamService teamService;
     private PlayerService playerService;
+    private OutPlayerService outplayerService;
 
-    public void requestHandler() {
+    public void requestHandler() throws SQLException {
         RequestInfo requestInfo = new RequestInfo();
         ParseRequest parseRequest = new ParseRequest();
 
@@ -44,8 +47,22 @@ public class RequestHandler {
                     result = teamService.createTeam(Integer.valueOf((String) parameterMap.get("stadiumId")),
                             String.valueOf(parameterMap.get("name")));
                     break;
+                case "선수목록":
+//                    System.out.println(playerService.getPlayersByTeamIdList());
+                    break;
+                case "선수등록":
+                    result = playerService.createPlayer(Integer.valueOf((String) parameterMap.get("teamId")),
+                            String.valueOf(parameterMap.get("name")),String.valueOf(parameterMap.get("position")));
+                    break;
                 case "포지션별목록":
                     System.out.println(playerService.getPlayerByPositions());
+                    break;
+                case "퇴출목록":
+                    System.out.println(outplayerService.getOutPlayerList());
+                    break;
+                case "퇴출선수등록":
+                    result = outplayerService.createOutPlayer(Integer.valueOf((String) parameterMap.get("playerId")),
+                            String.valueOf(parameterMap.get("reason")));
                     break;
                 case "종료":
                     System.out.println("프로그램 종료");
