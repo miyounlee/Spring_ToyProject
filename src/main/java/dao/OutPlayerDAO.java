@@ -35,8 +35,9 @@ public class OutPlayerDAO {
     // 퇴출 선수 목록 조회
     public List<OutPlayerRespDTO> getOutPlayerList() {
         List<OutPlayerRespDTO> outPlayers = new ArrayList<>();
-        String query = "SELECT p.id, p.name, p.position, o.reason, o.created_at" +
-                "FROM out_player o " + "RIGHT OUTER JOIN player p " + "ON o.player_id = p.id";
+        String query ="SELECT p.id playerId, p.name, p.position, o.reason, o.created_at\n" +
+                "FROM out_player o \n" +
+                "RIGHT OUTER JOIN player p ON o.player_id = p.id";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -53,7 +54,6 @@ public class OutPlayerDAO {
 
     private OutPlayerRespDTO buildOutPlayerRespDtoFromResultSet(ResultSet resultSet) {
         try {
-            Integer id = resultSet.getInt("id");
             Integer playerId = resultSet.getInt("playerId");
             String name = resultSet.getString("name");
             String position = resultSet.getString("position");
@@ -61,7 +61,6 @@ public class OutPlayerDAO {
             Timestamp outcreatedAt= resultSet.getTimestamp("created_at");
 
             return OutPlayerRespDTO.builder()
-                    .id(id)
                     .playerId(playerId)
                     .name(name)
                     .position(position)

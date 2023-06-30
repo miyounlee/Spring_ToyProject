@@ -1,6 +1,8 @@
 package service;
 
 import dao.PlayerDAO;
+import dao.PlayersByPositionDAO;
+import dto.PositionRespDTO;
 import model.Player;
 
 import java.sql.*;
@@ -12,8 +14,9 @@ public class PlayerService {
 
     private Connection connection;
 
-    public PlayerService(PlayerDAO playerDAO, Connection connection) {
+    public PlayerService(PlayerDAO playerDAO, PlayersByPositionDAO playersByPositionDAO, Connection connection) {
         this.playerDao = playerDAO;
+        this.playersByPositionDAO = playersByPositionDAO;
         this.connection = connection;
     }
 

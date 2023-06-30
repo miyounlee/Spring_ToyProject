@@ -13,23 +13,37 @@ public class OutPlayerService {
     private OutPlayerDAO outPlayerDao;
     private Connection connection;
 
-    public OutPlayerService(PlayerDAO playerDao, OutPlayerDAO outPlayerDao) {
+    public OutPlayerService(PlayerDAO playerDao, OutPlayerDAO outPlayerDao, Connection connection) {
         this.playerDao = playerDao;
         this.outPlayerDao = outPlayerDao;
-        this.connection = DBConnection.getInstance();
+        this.connection = connection;
     }
 
     // 퇴출 선수 등록
-    public String createOutPlayer(int playerId, String reason) throws SQLException {
-        connection.setAutoCommit(false);
-        int outPlayerResult = outPlayerDao.createOutPlayer(playerId, reason);
-        int playerResult = playerDao.updatePlayer(playerId);
+    public String createOutPlayer(int playerId, String reason) {
+        try {
+            connection.setAutoCommit(false);
+            int outPlayerResult = outPlayerDao.createOutPlayer(playerId, reason);
+            int playerResult = playerDao.updatePlayer(playerId);
 
-        if (outPlayerResult == 1 && playerResult == 1) {
-            connection.commit();
-            return "성공";
+            if (outPlayerResult == 1 && playerResult == 1) {
+                connection.commit();
+                return "성공";
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+                System.out.println(e.getMessage());
+            } catch (Exception innerEx) {
+                innerEx.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        connection.rollback();
         return "실패";
     }
 

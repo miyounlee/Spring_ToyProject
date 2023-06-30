@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 @Getter
 @Builder
 public class OutPlayerRespDTO {
-    private int id;
     private int playerId;
     private String name;
     private String position;
@@ -17,12 +16,11 @@ public class OutPlayerRespDTO {
     @Override
     public String toString() {
         return "OutPlayerRespDTO{" +
-                "id=" + id +
                 ", playerId='" + playerId + '\'' +
                 ", name='" + name + '\'' +
                 ", position='" + position + '\'' +
                 ", reason='" + reason + '\'' +
                 ", createdAt=" + outcreatedAt +
-                '}';
+                "}\n";
     }
 }

@@ -1,6 +1,7 @@
 package handler;
 
 import lombok.AllArgsConstructor;
+import service.OutPlayerService;
 import service.PlayerService;
 import service.StadiumService;
 import service.TeamService;
@@ -14,6 +15,7 @@ public class RequestHandler {
     private StadiumService stadiumService;
     private TeamService teamService;
     private PlayerService playerService;
+    private OutPlayerService outPlayerService;
 
     public void requestHandler() {
         RequestInfo requestInfo = new RequestInfo();
@@ -43,6 +45,21 @@ public class RequestHandler {
                 case "팀등록":
                     result = teamService.createTeam(Integer.valueOf((String) parameterMap.get("stadiumId")),
                             String.valueOf(parameterMap.get("name")));
+                    break;
+                case "선수등록":
+                    result = playerService.createPlayer(Integer.valueOf((String) parameterMap.get("teamId")),
+                            String.valueOf(parameterMap.get("name")),
+                            String.valueOf(parameterMap.get("position")));
+                    break;
+                case "선수목록":
+                    System.out.println(playerService.getPlayersByTeamIdList(Integer.valueOf((String) parameterMap.get("teamId"))));
+                    break;
+                case "퇴출목록":
+                    System.out.println(outPlayerService.getOutPlayerList());
+                    break;
+                case "퇴출등록":
+                    result = outPlayerService.createOutPlayer(Integer.valueOf((String) parameterMap.get("playerId")),
+                            String.valueOf(parameterMap.get("reason")));
                     break;
                 case "포지션별목록":
                     System.out.println(playerService.getPlayerByPositions());

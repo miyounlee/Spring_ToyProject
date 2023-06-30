@@ -1,19 +1,16 @@
-import dao.PlayerDAO;
-import dao.PlayersByPositionDAO;
-import dao.StadiumDAO;
-import dao.TeamDAO;
+import dao.*;
 import db.DBConnection;
 import handler.RequestHandler;
+import service.OutPlayerService;
 import service.PlayerService;
 import service.StadiumService;
 import service.TeamService;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 
 public class BaseBallApp {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
         Connection connection = DBConnection.getInstance();
 
@@ -30,12 +27,16 @@ public class BaseBallApp {
         PlayersByPositionDAO playersByPositionDAO = PlayersByPositionDAO.getInstance();
         playersByPositionDAO.setConnection(connection);
 
+        OutPlayerDAO outPlayerDAO = OutPlayerDAO.getInstance();
+        outPlayerDAO.setConnection(connection);
+
         // ---------- service ----------
 
         StadiumService stadiumService = new StadiumService(stadiumDAO, connection);
         TeamService teamService = new TeamService(teamDAO, connection);
         PlayerService playerService = new PlayerService(playerDAO, playersByPositionDAO, connection);
-        RequestHandler requestHandler = new RequestHandler(stadiumService, teamService, playerService);
+        OutPlayerService outPlayerService = new OutPlayerService(playerDAO, outPlayerDAO, connection);
+        RequestHandler requestHandler = new RequestHandler(stadiumService, teamService, playerService, outPlayerService);
 
         // ---------- 파싱 ----------
         requestHandler.requestHandler();
