@@ -42,7 +42,7 @@ public class PlayerService {
     public List<Player> getPlayersByTeamIdList(int teamId) {
         List<Player> players = playerDao.getPlayersByTeamIdList(teamId);
         if (players == null) {
-            throw new RuntimeException("선수 목록 조회 오류발생");
+            throw new RuntimeException("선수 목록을 가져올 수 없습니다.");
         }
         return players;
     }

@@ -16,6 +16,7 @@ public class PlayerRespDTO {
     public String toString() {
         return "OutPlayerRespDTO{" +
                 "id=" + id +
+                "teamId" + teamId +
                 ", playerName='" + name + '\'' +
                 ", position='" + position + '\'' +
                 ", createdAt=" + createdAt +
