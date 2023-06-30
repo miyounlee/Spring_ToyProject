@@ -24,7 +24,10 @@ public class OutPlayerDAO {
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, playerId);
             statement.setString(2, reason);
-            statement.executeUpdate();
+
+            int rowCount = statement.executeUpdate();
+
+            return rowCount;
         } catch (SQLException e) {
             e.printStackTrace();
         }
