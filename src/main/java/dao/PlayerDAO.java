@@ -8,47 +8,43 @@ import java.util.*;
 public class PlayerDAO {
     private Connection connection;
     private static final PlayerDAO INSTANCE = new PlayerDAO();
-
-    private PlayerDAO() {}
-
+    private PlayerDAO() {
+    }
     public static PlayerDAO getInstance() {
         return INSTANCE;
     }
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-
-    // 선수 생성
+    // 선수 등록
     public int createPlayer(int teamId, String name, String position) {
         String query = "INSERT INTO player (team_id, name, position) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        String checkquery = "SELECT COUNT(*) FROM player WHERE team_id =? AND position =?";
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             PreparedStatement checkStatement = connection.prepareStatement(checkquery)) {
+            checkStatement.setInt(1,teamId);
+            checkStatement.setString(2,position);
+
+            try (ResultSet resultSet = checkStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    if (count > 0) {
+                        throw new SQLException("팀 내에서 같은 포지션의 선수가 이미 등록되어 있습니다.");
+                    }
+                }
+            }
             statement.setInt(1, teamId);
             statement.setString(2, name);
             statement.setString(3, position);
 
-            return statement.executeUpdate();
+            int rowCount = statement.executeUpdate();
+
+            return rowCount;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
     }
-
-    // 선수 조회
-    public Player getPlayerById(int id) {
-        String query = "SELECT * FROM player WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
-            try (ResultSet resultset = statement.executeQuery()) {
-                if (resultset.next()) {
-                    return buildPlayerFromResultSet(resultset);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-      
     // 선수 업데이트
     public int updatePlayer(int playerId){
         String updatequery = "UPDATE player SET team_id =NULL WHERE id = ?";
