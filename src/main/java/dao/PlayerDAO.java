@@ -24,7 +24,9 @@ public class PlayerDAO {
             statement.setString(2, name);
             statement.setString(3, position);
 
-            return statement.executeUpdate();
+            int rowCount = statement.executeUpdate();
+
+            return rowCount;
         } catch (SQLException e) {
             e.printStackTrace();
         }
