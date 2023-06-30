@@ -38,9 +38,9 @@ public class OutPlayerDAO {
             statement.setInt(1, playerId);
             statement.setString(2, reason);
 
-            int rowCount = statement.executeUpdate();
+            int result = statement.executeUpdate();
 
-            return rowCount;
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }

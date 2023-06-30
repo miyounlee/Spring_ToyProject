@@ -13,7 +13,7 @@ public class OutPlayerService {
     private OutPlayerDAO outPlayerDao;
     private Connection connection;
 
-    public OutPlayerService(PlayerDAO playerDao, OutPlayerDAO outPlayerDao) {
+    public OutPlayerService(PlayerDAO playerDao, OutPlayerDAO outPlayerDao, Connection connection) {
         this.playerDao = playerDao;
         this.outPlayerDao = outPlayerDao;
         this.connection = DBConnection.getInstance();
