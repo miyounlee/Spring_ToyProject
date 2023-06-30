@@ -18,20 +18,36 @@ public class PlayerDAO {
         this.connection = connection;
     }
 
-    // 선수 생성
+    // 선수 등록
     public int createPlayer(int teamId, String name, String position) {
         String query = "INSERT INTO player (team_id, name, position) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        String checkquery = "SELECT COUNT(*) FROM player WHERE team_id =? AND position =?";
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             PreparedStatement checkStatement = connection.prepareStatement(checkquery)) {
+            checkStatement.setInt(1,teamId);
+            checkStatement.setString(2,position);
+
+            try (ResultSet resultSet = checkStatement.executeQuery()) { // 중복체크
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    if (count > 0) {
+                        throw new SQLException("중복 선수");
+                    }
+                }
+            }
             statement.setInt(1, teamId);
             statement.setString(2, name);
             statement.setString(3, position);
 
-            return statement.executeUpdate();
+            int result = statement.executeUpdate();
+
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
     }
+
 
     // 선수 조회
     public Player getPlayerById(int id) {

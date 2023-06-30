@@ -18,13 +18,28 @@ public class OutPlayerDAO {
         this.connection = connection;
     }
 
-    // 퇴출 선수 생성
+    // 퇴출 선수 등록
     public static int createOutPlayer(int playerId, String reason) {
         String query = "INSERT INTO out_player (player_id, reason) VALUES (?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        String checkQuery = "SELECT COUNT(*) FROM out_player WHERE player_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             PreparedStatement checkStatement = connection.prepareStatement(checkQuery)) {
+            checkStatement.setInt(1, playerId);
+            try (ResultSet resultSet = checkStatement.executeQuery()) { // 중복 체크
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    if (count > 0) {
+                        throw new SQLException("중복 퇴출");
+                    }
+                }
+            }
             statement.setInt(1, playerId);
             statement.setString(2, reason);
-            statement.executeUpdate();
+
+            int result = statement.executeUpdate();
+
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
