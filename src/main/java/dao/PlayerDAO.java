@@ -9,7 +9,7 @@ public class PlayerDAO {
     private Connection connection;
     private static final PlayerDAO INSTANCE = new PlayerDAO();
 
-    public PlayerDAO() {}
+    private PlayerDAO() {}
 
     public static PlayerDAO getInstance() {
         return INSTANCE;
@@ -48,11 +48,21 @@ public class PlayerDAO {
         }
         return null;
     }
+      
+    // 선수 업데이트
+    public int updatePlayer(int playerId){
+        String updatequery = "UPDATE player SET team_id =NULL WHERE id = ?";
+        try(PreparedStatement updatestatement = connection.prepareStatement(updatequery)){
+            updatestatement.setInt(1,playerId);
 
-    // @TODO : 선수 업데이트 추가하기
-//    public int updatePlayer(int playerId){}
+            return updatestatement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();;
+            return 0;
+        }
+    }
 
-    // 선수 목록 조회
+    // 팀별 선수 목록 조회
     public List<Player> getPlayersByTeamIdList(int teamId) {
         List<Player> players = new ArrayList<>();
         String query = "SELECT * FROM player WHERE team_id = ?";
@@ -91,3 +101,4 @@ public class PlayerDAO {
         return null;
     }
 }
+
