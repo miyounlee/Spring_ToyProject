@@ -8,15 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class PlayerByPositionDAO {
+public class PlayersByPositionDAO {
 
     private Connection connection;
 
-    private static final PlayerByPositionDAO INSTANCE = new PlayerByPositionDAO();
-    public PlayerByPositionDAO() {
+    private static final PlayersByPositionDAO INSTANCE = new PlayersByPositionDAO();
+    public PlayersByPositionDAO() {
     }
 
-    public static PlayerByPositionDAO getInstance() {
+    public static PlayersByPositionDAO getInstance() {
         return INSTANCE;
     }
 

@@ -15,7 +15,7 @@ public class TeamService {
         this.connection = connection;
     }
 
-    public String insertTeam(int stadiumId, String name) {
+    public String createTeam(int stadiumId, String name) {
         if (isValidation(name)) {
             return "이미 존재하는 팀입니다.";
         }
@@ -38,7 +38,7 @@ public class TeamService {
     }
 
     // 전체 팀 목록 호출 메서드
-    public List<TeamRespDTO> getTeams() {
+    public List<TeamRespDTO> getTeamList() {
         return teamDAO.getTeamList();
     }
 
