@@ -8,14 +8,16 @@ import java.util.*;
 public class PlayerDAO {
     private Connection connection;
     private static final PlayerDAO INSTANCE = new PlayerDAO();
-    private PlayerDAO() {
-    }
+
+    private PlayerDAO() {}
+
     public static PlayerDAO getInstance() {
         return INSTANCE;
     }
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
+
     // 선수 생성
     public int createPlayer(int teamId, String name, String position) {
         String query = "INSERT INTO player (team_id, name, position) VALUES (?, ?, ?)";
@@ -46,6 +48,7 @@ public class PlayerDAO {
         }
         return null;
     }
+      
     // 선수 업데이트
     public int updatePlayer(int playerId){
         String updatequery = "UPDATE player SET team_id =NULL WHERE id = ?";
@@ -98,3 +101,4 @@ public class PlayerDAO {
         return null;
     }
 }
+

@@ -1,6 +1,7 @@
 package dao;
 
 import dto.PositionRespDTO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,22 +12,17 @@ public class PlayersByPositionDAO {
 
     private Connection connection;
 
-    // ------------ singleton -------------
+    private static final PlayersByPositionDAO INSTANCE = new PlayersByPositionDAO();
     public PlayersByPositionDAO() {
     }
 
-    private static class PlayersByPositionDAOHelper {
-        private static final PlayersByPositionDAO INSTANCE = new PlayersByPositionDAO();
-    }
-
     public static PlayersByPositionDAO getInstance() {
-        return PlayersByPositionDAOHelper.INSTANCE;
+        return INSTANCE;
     }
 
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    // ------------------------------------
 
     // 포지션 별 팀 선수 피벗 테이블
     public PositionRespDTO getPlayerByPositionList() {
@@ -65,7 +61,7 @@ public class PlayersByPositionDAO {
                     .build();
 
         } catch (SQLException e) {
-           e.printStackTrace();
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         return PositionRespDTO.builder().build();

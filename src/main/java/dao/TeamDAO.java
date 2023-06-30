@@ -1,5 +1,6 @@
 package dao;
 
+import db.DBConnection;
 import dto.TeamRespDTO;
 import java.sql.*;
 import java.util.ArrayList;
@@ -7,21 +8,18 @@ import java.util.List;
 
 public class TeamDAO {
     private Connection connection;
+    private static final TeamDAO INSTANCE = new TeamDAO();
 
-    // ---- Bill Pugh Singleton Implementation ------
-    public TeamDAO() {}
-
-    private static class TeamDAOHelper {
-        private static final TeamDAO INSTANCE = new TeamDAO();
+    private TeamDAO() {
+        connection = DBConnection.getInstance();
     }
 
     public static TeamDAO getInstance() {
-        return TeamDAOHelper.INSTANCE;
+        return INSTANCE;
     }
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    // --------------------------------------------
 
     // 팀 등록
     public int createTeam(int stadiumId, String name) {
