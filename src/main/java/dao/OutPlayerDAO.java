@@ -2,12 +2,13 @@ package dao;
 
 
 import dto.OutPlayerRespDTO;
+import model.OutPlayer;
+
 import java.sql.*;
 import java.util.*;
 
 public class OutPlayerDAO {
     private static Connection connection;
-
     private static final OutPlayerDAO INSTANCE = new OutPlayerDAO();
     private OutPlayerDAO() {
     }
@@ -18,13 +19,28 @@ public class OutPlayerDAO {
         this.connection = connection;
     }
 
-    // 퇴출 선수 생성
-    public static int createOutPlayer(int playerId, String reason) {
+    // 퇴출 선수 등록
+    public static int createOutPlayer(int playerId, String reason) throws SQLException{
         String query = "INSERT INTO out_player (player_id, reason) VALUES (?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        String checkQuery = "SELECT COUNT(*) FROM out_player WHERE player_id = ?";
+
+        try (PreparedStatement checkStatement = connection.prepareStatement(checkQuery);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            checkStatement.setInt(1, playerId);
+            try (ResultSet resultSet = checkStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    if (count > 0) {
+                        throw new SQLException("중복 퇴출");
+                    }
+                }
+            }
             statement.setInt(1, playerId);
             statement.setString(2, reason);
-            statement.executeUpdate();
+
+            int rowCount = statement.executeUpdate();
+
+            return rowCount;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,4 +90,3 @@ public class OutPlayerDAO {
         }
     }
 }
-
