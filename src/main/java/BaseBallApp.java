@@ -1,6 +1,6 @@
 import dao.*;
 import db.DBConnection;
-import handler.RequestHandler;
+import requestHandler.RequestParser;
 import service.OutPlayerService;
 import service.PlayerService;
 import service.StadiumService;
@@ -36,10 +36,10 @@ public class BaseBallApp {
         TeamService teamService = new TeamService(teamDAO, connection);
         PlayerService playerService = new PlayerService(playerDAO, playersByPositionDAO, connection);
         OutPlayerService outPlayerService = new OutPlayerService(playerDAO, outPlayerDAO, connection);
-        RequestHandler requestHandler = new RequestHandler(stadiumService, teamService, playerService, outPlayerService);
+        RequestParser requestHandler = new RequestParser(stadiumService, teamService, playerService, outPlayerService);
 
         // ---------- 파싱 ----------
-        requestHandler.requestHandler();
+        requestHandler.handleRequest();
 
     }
 }
