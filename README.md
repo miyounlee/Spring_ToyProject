@@ -68,7 +68,7 @@ create table out_player(
 ``` sql
 야구장등록?name=잠실
 야구장등록?name=창원
-야구장등록?name=광주주
+야구장등록?name=광주
 ```
 <br>
 
