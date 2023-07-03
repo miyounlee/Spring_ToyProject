@@ -82,7 +82,7 @@ create table out_player(
 
 `선수 입력 데이터`
 ```sql
-LG (1) 
+LG (1)
 선수등록?teamId=1&name=오스틴&position=1루수
 선수등록?teamId=1&name=서건창&position=2루수
 선수등록?teamId=1&name=문보경&position=3루수
@@ -93,25 +93,25 @@ LG (1)
 선수등록?teamId=1&name=박해민&position=중견수
 선수등록?teamId=1&name=문성주&position=우익
 NC (2)
-선수등록?teamId=1&name=오영수&position=1루수
-선수등록?teamId=1&name=박민우&position=2루수
-선수등록?teamId=1&name=박석민&position=3루수
-선수등록?teamId=1&name=박세혁&position=포수
-선수등록?teamId=1&name=페디&position=투수
-선수등록?teamId=1&name=김주원&position=유격수
-선수등록?teamId=1&name=김성욱&position=좌익수
-선수등록?teamId=1&name=마틴&position=중견수
-선수등록?teamId=1&name=박건우&position=우익
+선수등록?teamId=2&name=오영수&position=1루수
+선수등록?teamId=2&name=박민우&position=2루수
+선수등록?teamId=2&name=박석민&position=3루수
+선수등록?teamId=2&name=박세혁&position=포수
+선수등록?teamId=2&name=페디&position=투수
+선수등록?teamId=2&name=김주원&position=유격수
+선수등록?teamId=2&name=김성욱&position=좌익수
+선수등록?teamId=2&name=마틴&position=중견수
+선수등록?teamId=2&name=박건우&position=우익
 KIA (3)
-선수등록?teamId=1&name=변우혁&position=1루수
-선수등록?teamId=1&name=김선빈&position=2루수
-선수등록?teamId=1&name=류지혁&position=3루수
-선수등록?teamId=1&name=한승택&position=포수
-선수등록?teamId=1&name=앤더슨&position=투수
-선수등록?teamId=1&name=박찬호&position=유격수
-선수등록?teamId=1&name=이창진&position=좌익수
-선수등록?teamId=1&name=소크라테스&position=중견수
-선수등록?teamId=1&name=나성범&position=우익
+선수등록?teamId=3&name=변우혁&position=1루수
+선수등록?teamId=3&name=김선빈&position=2루수
+선수등록?teamId=3&name=류지혁&position=3루수
+선수등록?teamId=3&name=한승택&position=포수
+선수등록?teamId=3&name=앤더슨&position=투수
+선수등록?teamId=3&name=박찬호&position=유격수
+선수등록?teamId=3&name=이창진&position=좌익수
+선수등록?teamId=3&name=소크라테스&position=중견수
+선수등록?teamId=3&name=나성범&position=우익
 ```
 <br>
 
