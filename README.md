@@ -68,7 +68,7 @@ create table out_player(
 ``` sql
 야구장등록?name=잠실
 야구장등록?name=창원
-야구장등록?name=광
+야구장등록?name=광주주
 ```
 <br>
 
@@ -110,7 +110,7 @@ KIA (3)
 선수등록?teamId=1&name=앤더슨&position=투수
 선수등록?teamId=1&name=박찬호&position=유격수
 선수등록?teamId=1&name=이창진&position=좌익수
-선수등록?teamId=1&name=소크라테스스&position=중견수
+선수등록?teamId=1&name=소크라테스&position=중견수
 선수등록?teamId=1&name=나성범&position=우익
 ```
 <br>
