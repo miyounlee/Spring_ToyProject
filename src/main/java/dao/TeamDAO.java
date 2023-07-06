@@ -11,7 +11,6 @@ public class TeamDAO {
     private static final TeamDAO INSTANCE = new TeamDAO();
 
     private TeamDAO() {
-        connection = DBConnection.getInstance();
     }
 
     public static TeamDAO getInstance() {
