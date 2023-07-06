@@ -13,8 +13,8 @@ public class PlayersByPositionDAO {
     private Connection connection;
 
     private static final PlayersByPositionDAO INSTANCE = new PlayersByPositionDAO();
-    public PlayersByPositionDAO() {
-    }
+
+    private PlayersByPositionDAO() {}
 
     public static PlayersByPositionDAO getInstance() {
         return INSTANCE;
